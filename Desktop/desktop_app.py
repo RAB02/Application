@@ -1,4 +1,3 @@
-from os import error
 from tkinter import *
 import sqlite3
 
@@ -75,7 +74,7 @@ def query_tasks(theList):
     theList.delete(0, END)
 
     for task in tasklist:
-        theList.insert(END, f"{task[0]} , {task[1]}")
+        theList.insert(END, f"{task[1]} , {task[2]}")
 
     # itr = 0
     # for task in tasklist:

@@ -101,9 +101,11 @@ def add_task(task, description, status, due_date, theList):
 
 
 # Clears the fields from the input
-def clear_fields(task, description):
+def clear_fields(task, description, status, due_date):
     task.delete(0, END)
     description.delete(0, END)
+    status.delete(0, END)
+    due_date.delete(0, END)
 
 
 # Clears the screen so that we can show another frame
@@ -212,7 +214,7 @@ def main_page():
                 due_entry.get(),
                 theList,
             ),
-            clear_fields(task_entry, description_entry),
+            clear_fields(task_entry, description_entry, status_entry, due_entry),
         ],
     )
     go_button = Button(

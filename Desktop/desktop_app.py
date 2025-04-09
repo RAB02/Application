@@ -1,4 +1,5 @@
 from tkinter import *
+import tkinter.messagebox
 import sqlite3
 
 root_window = Tk()
@@ -100,6 +101,10 @@ def add_task(task, description, status, due_date, theList):
     query_tasks(theList)
 
 
+# Makes pop-up window
+def pop_up(error):
+    tkinter.messagebox.showinfo("ERROR", error)
+
 # Clears the fields from the input
 def clear_fields(task, description, status, due_date):
     task.delete(0, END)
@@ -127,7 +132,7 @@ def check_login(username, password, frame):
         main_page()
 
     else:
-        print("WRONG LOGIN")
+        pop_up("INVALID LOG IN")
     return
 
 
@@ -164,16 +169,22 @@ def login():
 
 # returns the task that is selected by mouse from the given list
 def selected_item(list):
-    id = int(list.get(list.curselection()[0])[0])
-    dataConnector = sqlite3.connect("toDo.db")
-    cursor = dataConnector.cursor()
+    try:
+        id = int(list.get(list.curselection()[0])[0])
+        dataConnector = sqlite3.connect("toDo.db")
+        cursor = dataConnector.cursor()
 
-    cursor.execute("SELECT * FROM tasks WHERE tID = ?", [id])
-    task = cursor.fetchone()
+        cursor.execute("SELECT * FROM tasks WHERE tID = ?", [id])
+        task = cursor.fetchone()
 
-    task_screen(task)
+        task_screen(task)
 
-    dataConnector.close()
+        dataConnector.close()
+    except:
+        error = "INVALID TASK SELECTED"
+        main_page()
+        pop_up(error)
+        return
 
 
 def main_page():

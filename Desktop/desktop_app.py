@@ -100,7 +100,22 @@ def add_task(task, description, status, due_date, theList):
     dataConnector.close()
     query_tasks(theList)
 
+def delete_task(theList):
+    try:
+        selected = theList.get(theList.curselection())
+        tID = int(selected.split(":")[0])  # Get tID from "tID: task name"
+        
+        dataConnector = sqlite3.connect("toDo.db")
+        cursor = dataConnector.cursor()
 
+        cursor.execute("DELETE FROM Tasks WHERE tID = ?", (tID,))
+        dataConnector.commit()
+        dataConnector.close()
+
+        query_tasks(theList)
+
+    except:
+        pop_up("Invalid task selected")
 # Makes pop-up window
 def pop_up(error):
     tkinter.messagebox.showinfo("ERROR", error)
@@ -233,6 +248,13 @@ def main_page():
         text="See Task",
         command=lambda: [clear_screen(frame), selected_item(theList)],
     )
+
+    delete_button = Button(
+        frame,
+        text="Delete Task",
+        command=lambda: [delete_task(theList)],
+    )
+
     theList = Listbox(
         frame,
         width=35,
@@ -267,6 +289,7 @@ def main_page():
     due_label.pack(side=LEFT)
 
     go_button.pack(padx=5, pady=5)
+    delete_button.pack(padx=5, pady=5)
     submit_button.pack(padx=5, pady=5)
     query_tasks(theList)
 

@@ -40,9 +40,8 @@ if listOfTables == []:
         description text,
         status      text,
         due_date    text,
-        involved    integer,
-        PRIMARY KEY(tID AUTOINCREMENT),
-        FOREIGN KEY(involved) REFERENCES Users(uID)
+        involved    text,
+        PRIMARY KEY(tID AUTOINCREMENT)
     )""")
 
 listOfTables = cursor.execute(
@@ -50,11 +49,23 @@ listOfTables = cursor.execute(
 ).fetchall()
 if listOfTables == []:
     cursor.execute("""CREATE TABLE Login_to_User (
-    sID	    INTEGER,
+	sID	    INTEGER,
 	uID	    INTEGER,
 	PRIMARY KEY(sID,uID),
 	FOREIGN KEY(sID) REFERENCES "SignIn"("sID") ON DELETE CASCADE,
 	FOREIGN KEY(uID) REFERENCES "Users"("uID") ON DELETE CASCADE
+    )""")
+
+listOfTables = cursor.execute(
+    "SELECT name FROM sqlite_master WHERE type='table' AND name='UserTasks'"
+).fetchall()
+if listOfTables == []:
+    cursor.execute("""CREATE TABLE UserTasks (
+	uID	    INTEGER,
+	tID	    INTEGER,
+	PRIMARY KEY(uID,tID),
+	FOREIGN KEY(uID) REFERENCES "Users"("uID") ON DELETE CASCADE,
+	FOREIGN KEY(tID) REFERENCES "Tasks"("tID") ON DELETE CASCADE
     )""")
 
 dataConnector.commit()

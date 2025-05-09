@@ -14,8 +14,9 @@ def pop_up(error):
 
 
 # Clears the fields from the input
-def clear_fields(task, description, status, due_date):
+def clear_fields(task, description, status, due_date, involved):
     task.delete(0, END)
     description.delete(0, END)
     status.delete(0, END)
     due_date.delete(0, END)
+    involved.delete(0, END)

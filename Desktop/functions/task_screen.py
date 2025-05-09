@@ -17,6 +17,12 @@ def task_screen(task, user):
     task_status = Label(
         info_frame, font=("", 15), text=f"Task Status: {task[3]}", bg="#DACEC4"
     )
+    task_due = Label(
+        info_frame, font=("", 15), text=f"Task Due Date: {task[4]}", bg="#DACEC4"
+    )
+    task_involved = Label(
+        info_frame, font=("", 15), text=f"Users Involved: {task[5]}", bg="#DACEC4"
+    )
     back = Button(
         frame,
         text="Back",
@@ -31,4 +37,6 @@ def task_screen(task, user):
     task_name.pack()
     task_desc.pack()
     task_status.pack()
+    task_due.pack()
+    task_involved.pack()
     back.pack()

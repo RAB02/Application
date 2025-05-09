@@ -25,9 +25,12 @@ def check_login(username, password, frame):
         )""",
             [entry[0]],
         )
-        userID = cursor.fetchone()
+        user = cursor.fetchone()
         misc.clear_screen(frame)
-        main_page.main_page(userID)
+        if user[0] == 1:
+            main_page.admin_page(user)
+        else:
+            main_page.main_page(user)
 
     else:
         misc.pop_up("INVALID LOG IN")

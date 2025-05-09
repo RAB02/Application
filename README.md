@@ -1,12 +1,12 @@
 # Desktop To-Do List
 
 ### Planned Functionality
-- [ ] Create a new entry to the list.
-    - [ ] Entries must have: Name, due date, description, status and people involved.
-    - [ ] All user should be able to see the complete list of assignment. Additionally, there should be a view of each assignment.
+- [x] Create a new entry to the list.
+    - [x] Entries must have: Name, due date, description, status and people involved.
+    - [x] All user should be able to see the complete list of assignment. Additionally, there should be a view of each assignment.
 
     - [ ] There should be two types of users:
-        - [ ] User that can assign a task: This  User who are assigned with tasks: This users only can view the assignments and change the status of the assignment.users can create, delete, edit assignments.
+        - [x] User that can assign a task: These users can create, delete, edit assignments.
         - [ ] User who are assigned with tasks: This users only can view the assignments and change the status of the assignment.
 
 ### Agile Planning

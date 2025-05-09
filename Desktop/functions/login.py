@@ -10,9 +10,24 @@ def check_login(username, password, frame):
     cursor.execute(
         "SELECT * FROM SignIn WHERE username = ? AND password = ?", [username, password]
     )
-    if cursor.fetchall():
+    entry = cursor.fetchone()
+    if entry:
+        # try to get the entire user instead of the ID so that we can also pass the name
+        cursor.execute(
+            """
+        SELECT *
+        FROM Users
+        WHERE uID IN 
+        (
+        SELECT uID
+        FROM Login_to_User
+        WHERE sID = ?
+        )""",
+            [entry[0]],
+        )
+        userID = cursor.fetchone()
         misc.clear_screen(frame)
-        main_page.main_page()
+        main_page.main_page(userID)
 
     else:
         misc.pop_up("INVALID LOG IN")

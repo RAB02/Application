@@ -2,9 +2,12 @@ from tkinter import Frame, Label, Entry, Button, LEFT, RIGHT, Listbox
 from . import misc, task_management, login, root_window
 
 
-def main_page():
+def main_page(user):
+    user_id = user[0]
     # MAKING WIDGETS
     frame = Frame(root_window.root_window, bg="#DACEC4")
+    welcomeStr = "Hello " + user[1] + " " + user[2]
+    welcomeLabel = Label(frame, text=welcomeStr, font=("", 20), bg="#DACEC4")
     logout = Button(
         frame, text="Log Out", command=lambda: [misc.clear_screen(frame), login.login()]
     )
@@ -48,7 +51,7 @@ def main_page():
         text="See Task",
         command=lambda: [
             misc.clear_screen(frame),
-            task_management.selected_item(theList),
+            task_management.selected_item(theList, user),
         ],
     )
 
@@ -70,6 +73,7 @@ def main_page():
 
     # CALLING WIDGETS
     logout.pack()
+    welcomeLabel.pack(side="top", pady=10)
     frame.pack(anchor="center", padx=10, pady=10)
     mainPglabel.pack(side="top", pady=10)
     theList.pack(fill="both")

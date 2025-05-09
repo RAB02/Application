@@ -2,7 +2,7 @@ from tkinter import Frame, Label, Button
 from . import misc, main_page, root_window
 
 
-def task_screen(task):
+def task_screen(task, user):
     # MAKING WIDGETS
     frame = Frame(root_window.root_window, bg="#DACEC4")
     mainPglabel = Label(frame, text="Task Info", font=("", 24), bg="#DACEC4")
@@ -20,7 +20,7 @@ def task_screen(task):
     back = Button(
         frame,
         text="Back",
-        command=lambda: [misc.clear_screen(frame), main_page.main_page()],
+        command=lambda: [misc.clear_screen(frame), main_page.main_page(user)],
     )
 
     # CALLING WIDGETS

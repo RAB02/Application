@@ -58,7 +58,7 @@ def delete_task(theList):
 
 
 # returns the task that is selected by mouse from the given list #
-def selected_item(theList):
+def selected_item(theList, user):
     try:
         selected = theList.get(theList.curselection())
         tID = int(selected.split(":")[0])  # Get tID from "tID: task name"
@@ -68,9 +68,9 @@ def selected_item(theList):
         cursor.execute("SELECT * FROM tasks WHERE tID = ?", [tID])
         task = cursor.fetchone()
 
-        task_screen.task_screen(task)
+        task_screen.task_screen(task, user)
 
         dataConnector.close()
     except:
-        main_page.main_page()
+        main_page.main_page(user)
         misc.pop_up("Invalid task selected")

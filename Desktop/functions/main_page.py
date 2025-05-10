@@ -1,19 +1,42 @@
-from tkinter import Frame, Label, Entry, Button, LEFT, RIGHT, Listbox
+from tkinter import Frame, Label, Entry, Button, LEFT, RIGHT, Listbox, END
 from . import misc, task_management, login, root_window
+
+
+def setInvEntry(invStr, invEntry):
+    invEntry.delete(0, END)
+    invEntry.insert(0, invStr)
+    return
+
+
+def selected_user(userList, invEntry):
+    selectedID = []
+    invStr = ""
+    selected = [userList.get(i) for i in userList.curselection()]
+    for item in selected:
+        selectedID.append(int(item.split(":")[0]))
+    for item in selectedID:
+        invStr = invStr + str(item) + ","
+
+    invStr = invStr[:-1]
+    setInvEntry(invStr, invEntry)
 
 
 def admin_page(user):
     # MAKING WIDGETS
     frame = Frame(root_window.root_window, bg="#DACEC4")
+    main_frame = Frame(frame, bg="#DACEC4")
+    users_frame = Frame(frame, bg="#DACEC4")
     welcomeStr = "Hello " + user[1] + " " + user[2]
-    welcomeLabel = Label(frame, text=welcomeStr, font=("", 20), bg="#DACEC4")
+    welcomeLabel = Label(main_frame, text=welcomeStr, font=("", 20), bg="#DACEC4")
     logout = Button(
-        frame, text="Log Out", command=lambda: [misc.clear_screen(frame), login.login()]
+        main_frame,
+        text="Log Out",
+        command=lambda: [misc.clear_screen(frame), login.login()],
     )
     mainPglabel = Label(
-        frame, text="Welcome to Task Manager", font=("", 24), bg="#DACEC4"
+        main_frame, text="Welcome to Task Manager", font=("", 24), bg="#DACEC4"
     )
-    input_frame = Frame(frame, bg="#DACEC4")
+    input_frame = Frame(main_frame, bg="#DACEC4")
 
     name_frame = Frame(input_frame, bg="#DACEC4")
     task_entry = Entry(name_frame)
@@ -36,7 +59,7 @@ def admin_page(user):
     involved_label = Label(involved_frame, text="Users Involved: ", bg="#DACEC4")
 
     submit_button = Button(
-        frame,
+        main_frame,
         text="Submit",
         command=lambda: [
             task_management.add_task(
@@ -54,7 +77,7 @@ def admin_page(user):
         ],
     )
     go_button = Button(
-        frame,
+        main_frame,
         text="See Task",
         command=lambda: [
             misc.clear_screen(frame),
@@ -63,13 +86,13 @@ def admin_page(user):
     )
 
     delete_button = Button(
-        frame,
+        main_frame,
         text="Delete Task",
         command=lambda: [task_management.delete_task(theList, user)],
     )
 
     theList = Listbox(
-        frame,
+        main_frame,
         width=35,
         height=10,
         bg="SystemButtonFace",
@@ -77,13 +100,32 @@ def admin_page(user):
         fg="#464646",
         selectmode="single",
     )
+    usersList = Listbox(
+        users_frame,
+        width=15,
+        height=20,
+        bg="SystemButtonFace",
+        bd=0,
+        fg="#464646",
+        selectmode="multiple",
+    )
+
+    user_button = Button(
+        users_frame,
+        text="Select",
+        command=lambda: [selected_user(usersList, involved_entry)],
+    )
 
     # CALLING WIDGETS
     logout.pack()
     welcomeLabel.pack(side="top", pady=10)
     frame.pack(anchor="center", padx=10, pady=10)
+    main_frame.pack(side=RIGHT)
+    users_frame.pack(side=LEFT)
     mainPglabel.pack(side="top", pady=10)
     theList.pack(fill="both")
+    usersList.pack(padx=20)
+    user_button.pack()
 
     input_frame.pack()
     name_frame.pack()
@@ -110,6 +152,7 @@ def admin_page(user):
     delete_button.pack(padx=5, pady=5)
     submit_button.pack(padx=5, pady=5)
     task_management.query_tasks(theList, user)
+    misc.query_users(usersList)
 
 
 def main_page(user):

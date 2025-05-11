@@ -1,4 +1,7 @@
 # Desktop To-Do List
+### Prerequisites
+Install tkcalendar(can install in a virtual environment):
+`pip install tkcalendar`
 
 ### Planned Functionality
 - [x] Create a new entry to the list.

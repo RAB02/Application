@@ -5,9 +5,9 @@
     - [x] Entries must have: Name, due date, description, status and people involved.
     - [x] All user should be able to see the complete list of assignment. Additionally, there should be a view of each assignment.
 
-    - [ ] There should be two types of users:
+    - [x] There should be two types of users:
         - [x] User that can assign a task: These users can create, delete, edit assignments.
-        - [ ] User who are assigned with tasks: This users only can view the assignments and change the status of the assignment.
+        - [x] User who are assigned with tasks: This users only can view the assignments and change the status of the assignment.
 
 ### Agile Planning
 Every week, we will be giving a presentation on the status of our application.

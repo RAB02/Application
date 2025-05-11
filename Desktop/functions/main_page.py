@@ -1,4 +1,16 @@
-from tkinter import Frame, Label, Entry, Button, LEFT, RIGHT, Listbox, END
+from tkinter import (
+    Frame,
+    Label,
+    Entry,
+    Button,
+    LEFT,
+    RIGHT,
+    Listbox,
+    END,
+    OptionMenu,
+    StringVar,
+)
+from tkcalendar import DateEntry
 from . import misc, task_management, login, root_window
 
 
@@ -22,6 +34,8 @@ def selected_user(userList, invEntry):
 
 
 def admin_page(user):
+    statOpt = ["Not Done", "Completed"]
+    selected_status = StringVar(value="Not Done")
     # MAKING WIDGETS
     frame = Frame(root_window.root_window, bg="#DACEC4")
     main_frame = Frame(frame, bg="#DACEC4")
@@ -47,11 +61,11 @@ def admin_page(user):
     description_label = Label(desc_frame, text="Task Description: ", bg="#DACEC4")
 
     status_frame = Frame(input_frame, bg="#DACEC4")
-    status_entry = Entry(status_frame)
+    status_entry = OptionMenu(status_frame, selected_status, *statOpt)
     status_label = Label(status_frame, text="Task Status: ", bg="#DACEC4")
 
     due_frame = Frame(input_frame, bg="#DACEC4")
-    due_entry = Entry(due_frame)
+    due_entry = DateEntry(due_frame, selectmode="day")
     due_label = Label(due_frame, text="Task Due Date: ", bg="#DACEC4")
 
     involved_frame = Frame(input_frame, bg="#DACEC4")
@@ -65,8 +79,8 @@ def admin_page(user):
             task_management.add_task(
                 task_entry.get(),
                 description_entry.get(),
-                status_entry.get(),
-                due_entry.get(),
+                selected_status.get(),
+                due_entry.get_date(),
                 involved_entry.get(),
                 theList,
                 user,
@@ -76,6 +90,7 @@ def admin_page(user):
             ),
         ],
     )
+    # Go to task details
     go_button = Button(
         main_frame,
         text="See Task",

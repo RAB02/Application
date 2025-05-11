@@ -36,6 +36,7 @@ def add_task(task, description, status, due_date, involved, theList, user):
         return
 
     users = involved.split(",")
+    stat = str(status)
     dataConnector = sqlite3.connect("toDo.db")
     cursor = dataConnector.cursor()
 
@@ -43,7 +44,7 @@ def add_task(task, description, status, due_date, involved, theList, user):
         # Later, put actual involved people
         cursor.execute(
             "INSERT INTO Tasks (task_name, description, status, due_date, involved) VALUES (?, ?, ?, ?, ?)",
-            [task, description, status, due_date, involved],
+            [task, description, stat, due_date, involved],
         )
         taskID = cursor.lastrowid
         for uID in users:

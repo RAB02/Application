@@ -93,5 +93,8 @@ def selected_item(theList, user):
 
         dataConnector.close()
     except:
-        main_page.main_page(user)
+        if user[3] == 1:
+            main_page.admin_page(user)
+        else:
+            main_page.main_page(user)
         misc.pop_up("Invalid task selected")

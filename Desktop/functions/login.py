@@ -27,7 +27,7 @@ def check_login(username, password, frame):
         )
         user = cursor.fetchone()
         misc.clear_screen(frame)
-        if user[0] == 1:
+        if user[3] == 1:
             main_page.admin_page(user)
         else:
             main_page.main_page(user)

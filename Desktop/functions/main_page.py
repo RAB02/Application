@@ -15,8 +15,10 @@ from . import misc, task_management, login, root_window
 
 
 def setInvEntry(invStr, invEntry):
+    invEntry.config(state="normal")
     invEntry.delete(0, END)
     invEntry.insert(0, invStr)
+    invEntry.config(state="readonly")
     return
 
 
@@ -70,6 +72,7 @@ def admin_page(user):
 
     involved_frame = Frame(input_frame, bg="#DACEC4")
     involved_entry = Entry(involved_frame)
+    involved_entry.config(state='readonly')
     involved_label = Label(involved_frame, text="Users Involved: ", bg="#DACEC4")
 
     submit_button = Button(

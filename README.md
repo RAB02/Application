@@ -17,3 +17,9 @@ Every week, we will be giving a presentation on the status of our application.
 
 The aim should be to plan out and implement atleast one feature a week.
 That may be of the features listed above, or some new feature requested.
+
+### Group Members:
+- Rodolfo Gonzalez
+- Ramon Bernal
+- Patricio Rodriguez
+- Dante Peraza
